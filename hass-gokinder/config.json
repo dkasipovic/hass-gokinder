@@ -1,6 +1,6 @@
 {
     "slug": "hass-gokinder",
-    "name": "Home Assistant: GoKinder - Najnovija galerija",
+    "name": "GoKinder - Najnovija galerija",
     "version": "1.0.2",
     "url": "https://github.com/dkasipovic/hass-gokinder",
     "stage": "stable",
@@ -29,5 +29,6 @@
         "gokinder_hostname": "str",
         "gokinder_timeout": "int"
     },
-    "homeassistant_api": true
+    "homeassistant_api": true,
+    "init": false
 }

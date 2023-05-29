@@ -1,7 +1,7 @@
 {
   "name": "hass-gokinder",
   "version": "1.0.0",
-  "description": "Home Assistant: GoKinder - Najnovija galerija",
+  "description": "GoKinder - Najnovija galerija",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
