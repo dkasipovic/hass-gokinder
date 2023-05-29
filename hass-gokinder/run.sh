@@ -1,4 +1,4 @@
-#!/usr/bin/env bashio
+#!/usr/bin/with-contenv bashio
 set +u
 
 export GOKINDER_USERNAME=$(bashio::config 'gokinder_username')
