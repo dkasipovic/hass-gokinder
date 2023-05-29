@@ -1,0 +1,33 @@
+{
+    "slug": "hass-zvjezdica",
+    "name": "Home Assistant: GoKinder - Najnovija galerija",
+    "version": "1.0.2",
+    "url": "https://github.com/dkasipovic/hass-zvjezdica",
+    "stage": "stable",
+    "description": "Prikazuje poslednju dostupnu galeriju na GoKinder aplikaciji",
+    "arch": [
+        "armhf",
+        "armv7",
+        "aarch64",
+        "amd64",
+        "i386"
+    ],
+    "startup": "services",
+    "boot": "auto",
+    "ports": {},
+    "ports_description": {},
+    "map": [],
+    "options": {
+        "gokinder_username": "Korisničko ime za Vašu GoKinder aplikaciju",
+        "gokinder_password": "Lozinka za Vašu GoKinder aplikaciju",
+        "gokinder_hostname": "Link za Vašu GoKinder aplikaciju (npr. nekivrtic.gokinder.com)",
+        "gokinder_timeout": "Koliko često da se provjerava (minuta)"
+    },
+    "schema": {
+        "gokinder_username": "str",
+        "gokinder_password": "str",
+        "gokinder_hostname": "str",
+        "gokinder_timeout": "int"
+    },
+    "homeassistant_api": true
+}
