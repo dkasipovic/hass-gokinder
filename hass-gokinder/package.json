@@ -1,7 +1,7 @@
 {
-  "name": "hass-zvjezdica",
+  "name": "hass-gokinder",
   "version": "1.0.0",
-  "description": "Home Assistant: Klub za djecu \"Zvjezdica\" - Najnovija galerija",
+  "description": "Home Assistant: GoKinder - Najnovija galerija",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

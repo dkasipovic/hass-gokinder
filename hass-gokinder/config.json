@@ -1,8 +1,8 @@
 {
-    "slug": "hass-zvjezdica",
+    "slug": "hass-gokinder",
     "name": "Home Assistant: GoKinder - Najnovija galerija",
     "version": "1.0.2",
-    "url": "https://github.com/dkasipovic/hass-zvjezdica",
+    "url": "https://github.com/dkasipovic/hass-gokinder",
     "stage": "stable",
     "description": "Prikazuje poslednju dostupnu galeriju na GoKinder aplikaciji",
     "arch": [
