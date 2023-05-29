@@ -40,15 +40,17 @@ const getGalerija = () => {
         }, function (e, r, body) {
             if (e) {
                 console.log(e);
-                process.exit(1);
+                getOpet();
             } else {
                 const dom = new JSDOM(body);
                 let x = dom.window.document.querySelectorAll('a');
                 const galerija = x[x.length - 1].innerHTML;
                 if (galerija && galerija.length) {
                     console.log(`Poslednji album: ${galerija}`);
+                    getOpet();
                     sendToHass(galerija);
                 } else {
+                    getOpet();
                     console.log('Nemoguce dobiti poslednji album', galerija);
                 }
             }
@@ -69,7 +71,8 @@ const sendToHass = (galerijaNaziv) => {
     })
 }
 
-const getOpen = () => {
+const getOpet = () => {
+    console.log(`Checking again in ${TIMEOUT} minutes`);
     setTimeout(() => {
         getGalerija();
     }, TIMEOUT * 60 * 1000);
