@@ -12,4 +12,4 @@ bashio::log.info "GoKinder hostname: ${GOKINDER_HOSTNAME}"
 bashio::log.info "GoKinder timeout: ${GOKINDER_TIMEOUT}"
 
 bashio::log.info "Starting GoKinder..."
-node index.js
+npm run start
