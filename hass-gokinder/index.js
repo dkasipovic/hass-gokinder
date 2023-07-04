@@ -2,10 +2,10 @@ const request = require('request').defaults({ jar: true })
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
-const GOKINDER_URL = process.env.GOKINDER_HOSTNAME || '';
-const GOKINDER_USERNAME = process.env.GOKINDER_USERNAME || '';
-const GOKINDER_PASSWORD = process.env.GOKINDER_PASSWORD || '';
-const TIMEOUT = process.env.GOKINDER_TIMEOUT || 60;
+const GOKINDER_URL = process.env.GOKINDER_HOSTNAME || 'zvjezdicavrtic.gokinder.com';
+const GOKINDER_USERNAME = process.env.GOKINDER_USERNAME || 'dkasipovic1';
+const GOKINDER_PASSWORD = process.env.GOKINDER_PASSWORD || 'umvxqf7axa';
+const TIMEOUT = process.env.GOKINDER_TIMEOUT || '60';
 
 const SUPERVISOR_TOKEN = process.env.SUPERVISOR_TOKEN;
 
@@ -14,7 +14,7 @@ var headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
 };
 
-const getGalerija = () => {
+const getGalerija = (mjesec, godina, onSuccess, onFail) => {
     request.post({
         url: `https://${GOKINDER_URL}/login.php`,
         form: {
@@ -30,9 +30,10 @@ const getGalerija = () => {
         }
         let form1 = {
             fleg: 'albumi_roditelja',
-            mesec: new String(new Date().getMonth() + 1).padStart(2, '0'),
-            godina: new Date().getFullYear()
+            mesec: mjesec,
+            godina: godina
         }
+        console.log('>', form1);
         request.post({
             url: `https://${GOKINDER_URL}/ajax/albumi.php`,
             form: form1,
@@ -44,14 +45,18 @@ const getGalerija = () => {
             } else {
                 const dom = new JSDOM(body);
                 let x = dom.window.document.querySelectorAll('a');
-                const galerija = x[x.length - 1].innerHTML;
-                if (galerija && galerija.length) {
-                    console.log(`Poslednji album: ${galerija}`);
-                    getOpet();
-                    sendToHass(galerija);
+                if (x && x.length > 0) {
+                    const galerija = x[x.length - 1].innerHTML;
+                    if (galerija && galerija.length) {
+                        console.log(`Poslednji album: ${galerija}`);
+                        onSuccess();
+                    } else {
+                        console.log('#1 Nemoguce dobiti poslednji album');
+                        onFail();
+                    }
                 } else {
-                    getOpet();
-                    console.log('Nemoguce dobiti poslednji album', galerija);
+                    console.log('#2 Nemoguce dobiti poslednji album');
+                    onFail();
                 }
             }
         });
@@ -75,7 +80,36 @@ const getOpet = () => {
     console.log(`Checking again in ${TIMEOUT} minutes`);
     setTimeout(() => {
         getGalerija();
-    }, TIMEOUT * 60 * 1000);
+    }, parseInt(TIMEOUT) * 60 * 1000);
 }
 
-getGalerija();
+let mjesec = new String(new Date().getMonth() + 1).padStart(2, '0');
+let godina = new Date().getFullYear();
+
+getGalerija(
+    mjesec,
+    godina,
+    (galerija) => {
+        console.log('Preuzeta galerija za tekuci mjesec, slanje u HASS', galerija);
+        sendToHass(galerija);
+        getOpet();
+    },
+    () => {
+        let prosli_mjesec = new String(new Date(new Date().setDate(0)).getMonth() + 1).padStart(2, '0');
+        let prosla_godina = new Date(new Date().setDate(0)).getFullYear();
+        console.log('Nema galerija za tekuci mjesec, provjeravam prosli');
+        getGalerija(
+            prosli_mjesec,
+            prosla_godina,
+            (galerija) => {
+                console.log('Preuzeta galerija za prosli mjesec, slanje u HASS', galerija)
+                sendToHass(galerija);
+                getOpet();
+            },
+            () => {
+                console.log('Nemoguce pokupiti galeriju ni za prosli mjesec');
+                getOpet();
+            }
+        );
+    }
+);
