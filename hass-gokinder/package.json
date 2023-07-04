@@ -1,6 +1,6 @@
 {
   "name": "hass-gokinder",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "GoKinder - Najnovija galerija",
   "main": "index.js",
   "scripts": {
