@@ -2,9 +2,9 @@ const request = require('request').defaults({ jar: true })
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
-const GOKINDER_URL = process.env.GOKINDER_HOSTNAME || 'zvjezdicavrtic.gokinder.com';
-const GOKINDER_USERNAME = process.env.GOKINDER_USERNAME || 'dkasipovic1';
-const GOKINDER_PASSWORD = process.env.GOKINDER_PASSWORD || 'umvxqf7axa';
+const GOKINDER_URL = process.env.GOKINDER_HOSTNAME || '';
+const GOKINDER_USERNAME = process.env.GOKINDER_USERNAME || '';
+const GOKINDER_PASSWORD = process.env.GOKINDER_PASSWORD || '';
 const TIMEOUT = process.env.GOKINDER_TIMEOUT || '60';
 
 const SUPERVISOR_TOKEN = process.env.SUPERVISOR_TOKEN;
