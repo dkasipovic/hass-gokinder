@@ -49,7 +49,7 @@ const getGalerija = (mjesec, godina, onSuccess, onFail) => {
                     const galerija = x[x.length - 1].innerHTML;
                     if (galerija && galerija.length) {
                         console.log(`Poslednji album: ${galerija}`);
-                        onSuccess();
+                        onSuccess(galerija);
                     } else {
                         console.log('#1 Nemoguce dobiti poslednji album');
                         onFail();
